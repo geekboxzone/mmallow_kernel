@@ -15,6 +15,7 @@
 #include <linux/workqueue.h>
 
 #define GBOX_FAN_TRIG_TEMP		50	// 50 degree if not set
+#define GBOX_FAN_TRIG_MAXTEMP	80
 #define GBOX_FAN_LOOP_SECS 		30 * HZ	// 30 seconds
 #define GBOX_FAN_LOOP_NODELAY_SECS      0
 #define GBOX_FAN_GPIO_OFF		0
@@ -100,8 +101,33 @@ static ssize_t fan_mode_store(struct device *dev, struct device_attribute *attr,
 	return count;
 }
 
+static ssize_t fan_temp_show(struct device *dev,
+			 struct device_attribute *attr, char *buf)
+{
+	struct gbox_fan_data *fan_data = dev_get_drvdata(dev);
+
+	return sprintf(buf, "Fan trigger temperature: %d\n", fan_data->trig_temp);
+}
+
+static ssize_t fan_temp_store(struct device *dev, struct device_attribute *attr,
+		       const char *buf, size_t count)
+{
+	struct gbox_fan_data *fan_data = dev_get_drvdata(dev);
+	int temp;
+
+	if (kstrtoint(buf, 0, &temp))
+		return -EINVAL;
+
+	if (temp > GBOX_FAN_TRIG_MAXTEMP)
+		temp = GBOX_FAN_TRIG_MAXTEMP;
+	fan_data->trig_temp = temp;
+
+	return count;
+}
+
 static struct device_attribute fan_class_attrs[] = {
 	__ATTR(mode, S_IRUGO | S_IWUGO, fan_mode_show, fan_mode_store),
+	__ATTR(temp, S_IRUGO | S_IWUGO, fan_temp_show, fan_temp_store),
 	__ATTR_NULL,
 };
 
