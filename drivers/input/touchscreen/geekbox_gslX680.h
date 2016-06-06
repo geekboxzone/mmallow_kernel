@@ -2,8 +2,8 @@
 #define _GSLX680_H_
 
 
-#define SCREEN_MAX_X 		2048
-#define SCREEN_MAX_Y 		1536
+#define SCREEN_MAX_X 		1536
+#define SCREEN_MAX_Y 		2048
 
 struct fw_data
 {

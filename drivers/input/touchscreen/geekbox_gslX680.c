@@ -91,12 +91,9 @@ const u16 key_array[] = {
 #define MAX_KEY_NUM     (sizeof(key_array)/sizeof(key_array[0]))
 
 struct key_data gsl_key_data[MAX_KEY_NUM] = {
-	//{KEY_BACK, 1480, 1500, 2084, 2104},
-	//{KEY_HOMEPAGE, 1390, 1410, 2084, 2104},
-	//{KEY_MENU, 1300, 1320, 2084, 2104},
-	{KEY_BACK, 2084, 2104, 1480, 1500},
-	{KEY_HOMEPAGE, 2084, 2104, 1390, 1410},
-	{KEY_MENU, 2084, 2104, 1300, 1320},
+	{KEY_BACK, 1480, 1500, 2084, 2104},
+	{KEY_HOMEPAGE, 1390, 1410, 2084, 2104},
+	{KEY_MENU, 1300, 1320, 2084, 2104},
 };
 #endif
 
@@ -499,7 +496,6 @@ static void report_key(struct gsl_ts *ts, u16 x, u16 y)
 
 static void report_data(struct gsl_ts *ts, u16 x, u16 y, u8 pressure, u8 id)
 {
-	swap(x, y);
 	if (x > SCREEN_MAX_X || y > SCREEN_MAX_Y) {
 	#ifdef HAVE_TOUCH_KEY
 		report_key(ts, x, y);
@@ -507,6 +503,7 @@ static void report_data(struct gsl_ts *ts, u16 x, u16 y, u8 pressure, u8 id)
 		return;
 	}
 
+	y = SCREEN_MAX_Y - y;
 #ifdef REPORT_DATA_ANDROID_4_0
 	input_mt_slot(ts->input, id);
 	input_report_abs(ts->input, ABS_MT_TRACKING_ID, id);
