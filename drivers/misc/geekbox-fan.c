@@ -70,6 +70,7 @@ static void gbox_fan_mode_set(struct gbox_fan_data  *fan_data)
 
 	case GBOX_FAN_STATE_AUTO:
 		// FIXME: achieve with a better way
+		cancel_delayed_work(&fan_data->work);
 		schedule_delayed_work(&fan_data->work, GBOX_FAN_LOOP_NODELAY_SECS);
 		break;
 
