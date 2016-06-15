@@ -1,3 +1,5 @@
+obj-$(CONFIG_LEDS_TRIGGER_TEMP)     += ledtrig-temp.o
+obj-$(CONFIG_LEDS_TRIGGER_OFF)      += ledtrig-off.o
 obj-$(CONFIG_LEDS_TRIGGER_TIMER)	+= ledtrig-timer.o
 obj-$(CONFIG_LEDS_TRIGGER_ONESHOT)	+= ledtrig-oneshot.o
 obj-$(CONFIG_LEDS_TRIGGER_IDE_DISK)	+= ledtrig-ide-disk.o

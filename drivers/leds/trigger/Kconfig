@@ -8,6 +8,20 @@ menuconfig LEDS_TRIGGERS
 
 if LEDS_TRIGGERS
 
+config LEDS_TRIGGER_TEMP
+    tristate "LED Temp Trigger"
+    depends on LEDS_TRIGGERS
+    help
+      This allows LEDs to be controlled by cpu temprerature
+      If unsure, say Y.
+
+config LEDS_TRIGGER_OFF
+    tristate "LED Off Trigger"
+    depends on LEDS_TRIGGERS
+	help
+	This allows LEDs to be initialised in the OFF state
+	If unsure, say Y.
+
 config LEDS_TRIGGER_TIMER
 	tristate "LED Timer Trigger"
 	depends on LEDS_TRIGGERS
