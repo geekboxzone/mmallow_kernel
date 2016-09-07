@@ -2042,7 +2042,7 @@ static const struct mmc_host_ops dw_mci_ops = {
         .card_busy		= dw_mci_card_busy,
         #endif
 };
-
+/*
 static void dw_mci_deal_data_end(struct dw_mci *host, struct mmc_request *mrq)
 	__releases(&host->lock)
 	__acquires(&host->lock)
@@ -2051,7 +2051,7 @@ static void dw_mci_deal_data_end(struct dw_mci *host, struct mmc_request *mrq)
 		dw_mci_wait_unbusy(host);
 	}
 }
-
+*/
 static void dw_mci_request_end(struct dw_mci *host, struct mmc_request *mrq)
 	__releases(&host->lock)
 	__acquires(&host->lock)
@@ -2061,7 +2061,7 @@ static void dw_mci_request_end(struct dw_mci *host, struct mmc_request *mrq)
 
 	//WARN_ON(host->cmd || host->data);
 
-	dw_mci_deal_data_end(host, mrq);
+	//dw_mci_deal_data_end(host, mrq);
 
 	if(mrq->cmd)
 		MMC_DBG_CMD_FUNC(host->mmc,
@@ -2284,7 +2284,7 @@ static void dw_mci_tasklet_func(unsigned long priv)
 						&host->pending_events))
 				break;
 
-			dw_mci_deal_data_end(host, host->mrq);			
+			//dw_mci_deal_data_end(host, host->mrq);			
                         MMC_DBG_INFO_FUNC(host->mmc, 
 				"Pre-state[%d]-->NowState[%d]: STATE_DATA_BUSY, "
 				"after EVENT_DATA_COMPLETE. [%s]",
