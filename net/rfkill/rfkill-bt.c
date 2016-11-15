@@ -294,7 +294,7 @@ static int rfkill_rk_set_power(void *data, bool blocked)
 
         rfkill_rk_sleep_bt(BT_WAKEUP); // ensure bt is wakeup
 
-        if (&rfkill->pdata->bt_power_remain == false && gpio_is_valid(poweron->io))
+        if (rfkill->pdata->bt_power_remain == false && gpio_is_valid(poweron->io))
         {
             gpio_direction_output(poweron->io, !poweron->enable);
             msleep(20);
@@ -322,7 +322,7 @@ static int rfkill_rk_set_power(void *data, bool blocked)
         bt_power_state = 1;
     	LOG("bt turn on power\n");
 	} else {
-            if (&rfkill->pdata->bt_power_remain == false && gpio_is_valid(poweron->io))
+            if (rfkill->pdata->bt_power_remain == false && gpio_is_valid(poweron->io))
             {      
                 gpio_direction_output(poweron->io, !poweron->enable);
                 msleep(20);
